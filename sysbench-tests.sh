@@ -14,7 +14,8 @@ echo ''
 
 for THREADS in ${CPU_THREADS}; do
     echo "[TASK] Start test with ${THREADS} threads ..."
-    sysbench --test=cpu --cpu-max-prime=${CPU_MAX_PRIME}  --threads=${THREADS} run
+    echo "[COMMAND] sysbench cpu --cpu-max-prime=${CPU_MAX_PRIME} --threads=${THREADS} run"
+    sysbench cpu --cpu-max-prime=${CPU_MAX_PRIME} --threads=${THREADS} run
     echo ''
 done
 
