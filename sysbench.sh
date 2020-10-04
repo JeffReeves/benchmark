@@ -24,8 +24,9 @@ echo "${LOG_FILE}"
 echo ''
 
 # start tests
+START_TIME=$(date)
 echo "[SYSBENCH TESTS]" | tee ${LOG_FILE}
-echo "[START] $(date)" | tee -a ${LOG_FILE}
+echo "[START] ${START_TIME}" | tee -a ${LOG_FILE}
 echo '' | tee -a ${LOG_FILE}
 
 # get this script's current directory
@@ -40,4 +41,58 @@ echo "[COMMAND] ${CURRENT_DIRECTORY}/${TEST_SUITE}"
 echo '' | tee -a ${LOG_FILE}
 
 # print completion message
-echo "[COMPLETE] $(date)" | tee -a ${LOG_FILE}
+END_TIME=$(date)
+echo "[COMPLETE] ${END_TIME}" | tee -a ${LOG_FILE}
+
+# function to format hours, minutes, and seconds
+function format_time {
+    local VALUE="${1}"
+    local UNIT="${2}"
+    case ${VALUE} in
+    0)
+        echo ''
+        ;;
+    1)
+        echo "${VALUE} ${UNIT}"
+        ;;
+    [2-9]|[1-5][0-9])
+        echo "${VALUE} ${UNIT}s"
+        ;;
+    *)
+        echo ''
+        ;;
+    esac
+}
+
+# set defaults for completion time
+SECONDS=0
+MINUTES=0
+HOURS=0
+
+# determine total seconds spent
+START_SECONDS=$(date -d "${START_TIME}" '+%s')
+END_SECONDS=$(date -d "${END_TIME}" '+%s')
+SECONDS=$((END_SECONDS - START_SECONDS))
+
+# if seconds exceed 60, add minutes
+if [ ${SECONDS} -gt 60 ]; then 
+    MINUTES=$((SECONDS / 60))
+    SECONDS=$((SECONDS % 60))
+fi
+
+# if minutes exceed 60, add hours
+if [ ${MINUTES} -gt '60' ]; then 
+    HOURS=$((MINUTES / 60))
+    MINUTES=$((MINUTES % 60))
+fi
+
+# format plurals
+HOURS_FORMATTED=$(format_time ${HOURS} 'hour')
+MINUTES_FORMATTED=$(format_time ${MINUTES} 'minute')
+SECONDS_FORMATTED=$(format_time ${SECONDS} 'second')
+
+TOTAL_TIME="${HOURS_FORMATTED} ${MINUTES_FORMATTED} ${SECONDS_FORMATTED}"
+
+# output the total time spent
+echo "[INFO] Total time spent running tests:"
+echo "${TOTAL_TIME}"
