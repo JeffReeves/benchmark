@@ -17,8 +17,12 @@ fi
 echo ''
 
 # create log file
-export LOG_FILE="/tmp/sysbench-tests_$(date +%Y%b%d).txt"
-echo "[START] Sysbench Tests ($(date +%Y%b%d))" | tee ${LOG_FILE}
+DATE=$(date +%Y-%b-%d | tr '[a-z]' '[A-Z]')
+LOG_FILE="/tmp/sysbench-tests_${DATE}.txt"
+
+# start tests
+echo "[SYSBENCH TESTS]" | tee ${LOG_FILE}
+echo "[START] $(date)" | tee -a ${LOG_FILE}
 echo '' | tee -a ${LOG_FILE}
 
 # get this script's current directory
@@ -33,4 +37,4 @@ echo "[COMMAND] ${CURRENT_DIRECTORY}/${TEST_SUITE}"
 echo '' | tee -a ${LOG_FILE}
 
 # print completion message
-echo "[COMPLETE] $(date +%Y%b%d)" | tee -a ${LOG_FILE}
+echo "[COMPLETE] $(date)" | tee -a ${LOG_FILE}
