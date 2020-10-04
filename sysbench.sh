@@ -19,6 +19,9 @@ echo ''
 # create log file
 DATE=$(date +%Y-%b-%d | tr '[a-z]' '[A-Z]')
 LOG_FILE="/tmp/sysbench-tests_${DATE}.txt"
+echo "[INFO] Output from tests will be tee'd to:"
+echo "${LOG_FILE}"
+echo ''
 
 # start tests
 echo "[SYSBENCH TESTS]" | tee ${LOG_FILE}
