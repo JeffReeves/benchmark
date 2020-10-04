@@ -2,6 +2,13 @@
 # purpose: runs a suite of sysbench tests to benchmark components
 # author: Jeff Reeves
 
+# general formatting function
+function print_separator {
+    printf '#'
+    printf '=%.0s' {1..79}
+    printf '\n'
+}
+
 #==[CPU]=======================================================================
 
 # init
@@ -9,7 +16,8 @@ CPU_MAX_PRIME='20000'
 CPU_THREADS='16 128'
 
 # start tests
-echo "[TASK] Running CPU tests ..."
+print_separator
+echo "[BEGIN] CPU TESTS"
 echo ''
 
 for THREADS in ${CPU_THREADS}; do
@@ -19,7 +27,8 @@ for THREADS in ${CPU_THREADS}; do
     echo ''
 done
 
-echo "[INFO] CPU tests complete"
+echo "[END] CPU TESTS"
+print_separator
 echo ''
 
 #==============================================================================
