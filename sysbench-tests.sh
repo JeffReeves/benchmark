@@ -102,18 +102,21 @@ echo ''
 # init
 FILE_SIZE='4G'
 FILE_NUM='128'
-FILE_BLOCK_SIZE='32768'
+FILE_BLOCK_SIZE='32768' # 32M x 128 files = 4G total
 FILE_THREADS='16 128'
-FILE_SEED='0' # 0 = use current time for random number generator
-FILE_MAX_EVENTS='1000' # 0 = unlimited
-FILE_MAX_TIME='120' # allow 10 minutes for each test
-FILE_TEST_MODES='rndrd seqrd rndwr seqwr rndrw seqrewr'
+FILE_SEED='0'       # 0 = use current time for random number generator
+FILE_MAX_EVENTS='0' # 0 = unlimited
+FILE_MAX_TIME='60'  # allow 1 minute for each test
+FILE_TEST_MODES='rndrd seqrd rndwr rndrw seqrewr seqwr'
 # rndrd   = random read
 # seqrd   = sequential read
 # rndwr   = random write
-# seqwr   = sequential write
 # rndrw   = random read-write
 # seqrewr = sequential rewrite
+# seqwr   = sequential write
+
+# NOTE: 'seqwr' doesn't write the desired sizes
+#   - raised issue: https://github.com/akopytov/sysbench/issues/385
 
 # start tests
 print_separator
@@ -141,9 +144,17 @@ for THREADS in ${FILE_THREADS}; do
     # start running tests
     echo "[TASK] Start test with ${THREADS} threads ..."
     echo ''
+
     for MODE in ${FILE_TEST_MODES}; do
+
+        # echo "[DEBUG] long listing of directory:"
+        # /usr/bin/ls -alh .
+
         echo "[TASK] Running test with mode '${MODE}' ..."
         echo "[COMMAND] sysbench fileio \\"
+        echo "--file-num=${FILE_NUM} \\"
+        echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
+        echo "--file-total-size=${FILE_SIZE} \\"
         echo "--file-test-mode=${MODE} \\"
         echo "--threads=${THREADS} \\"
         echo "--rand-seed=${FILE_SEED} \\"
@@ -161,6 +172,7 @@ for THREADS in ${FILE_THREADS}; do
         --time=${FILE_MAX_TIME} \
         --events=${FILE_MAX_EVENTS} \
         run
+
         echo ''
         print_separator -
     done
