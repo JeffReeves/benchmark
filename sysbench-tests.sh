@@ -100,13 +100,20 @@ echo ''
 #==[DISK I/O]==================================================================
 
 # init
-FILE_SIZE='4G'
+FILE_SIZE='2G'
+FILE_NUM='128'
 FILE_BLOCK_SIZE='16384'
 FILE_THREADS='16 128'
 FILE_SEED='0' # current time used for random number generator
 FILE_MAX_EVENTS='0' # unlimited
 FILE_MAX_TIME='60'
-FILE_TEST_MODES='rndrd seqrd rndrw seqrewr rndwr seqwr'
+FILE_TEST_MODES='rndrd seqrd rndwr seqwr rndrw seqrewr'
+# rndrd   = random read
+# seqrd   = sequential read
+# rndwr   = random write
+# seqwr   = sequential write
+# rndrw   = random read-write
+# seqrewr = sequential rewrite
 
 # start tests
 print_separator
@@ -115,9 +122,17 @@ echo ''
 
 # create test files
 echo "[TASK] Creating ${FILE_SIZE} test file ..."
-echo "[COMMAND] sysbench fileio --file-total-size=${FILE_SIZE} prepare"
+echo "[COMMAND] sysbench fileio \\"
+echo "--file-num=${FILE_NUM} \\"
+echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
+echo "--file-total-size=${FILE_SIZE} \\"
+echo "prepare"
 echo ''
-sysbench fileio --file-total-size=${FILE_SIZE} prepare
+sysbench fileio \
+--file-num=${FILE_NUM} \
+--file-block-size=${FILE_BLOCK_SIZE} \
+--file-total-size=${FILE_SIZE} \
+prepare
 echo "[INFO] File creation complete"
 echo ''
 
@@ -152,9 +167,17 @@ done
 
 # delete test files
 echo "[TASK] Deleting ${FILE_SIZE} test file ..."
-echo "[COMMAND] sysbench fileio --file-total-size=${FILE_SIZE} cleanup"
+echo "[COMMAND] sysbench fileio \\"
+echo "--file-num=${FILE_NUM} \\"
+echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
+echo "--file-total-size=${FILE_SIZE} \\"
+echo "cleanup"
 echo ''
-sysbench fileio --file-total-size=${FILE_SIZE} cleanup
+sysbench fileio \
+--file-num=${FILE_NUM} \
+--file-block-size=${FILE_BLOCK_SIZE} \
+--file-total-size=${FILE_SIZE} \
+cleanup
 echo "[INFO] File deletion complete"
 echo ''
 
