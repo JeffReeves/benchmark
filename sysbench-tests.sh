@@ -106,7 +106,7 @@ FILE_THREADS='16 128'
 FILE_SEED='0' # current time used for random number generator
 FILE_MAX_EVENTS='0' # unlimited
 FILE_MAX_TIME='60'
-FILE_TEST_MODES='seqwr seqrewr seqrd rndrd rndwr rndrw'
+FILE_TEST_MODES='rndrd seqrd rndrw seqrewr rndwr seqwr'
 
 # start tests
 print_separator
