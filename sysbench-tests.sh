@@ -50,8 +50,8 @@ echo ''
 MEMORY_THREADS='16 128'
 MEMORY_OPERATIONS='read write'
 MEMORY_ACCESS_MODE='rnd seq'
-MEMORY_TOTAL_SIZE='100G'
-MEMORY_BLOCK_SIZE='200M'
+MEMORY_TOTAL_SIZE='32G'
+MEMORY_BLOCK_SIZE='1M'
 
 # start tests
 print_separator
@@ -70,7 +70,7 @@ for THREADS in ${CPU_THREADS}; do
             echo "MODE:      '${MODE}'"
             echo ''
             echo "[COMMAND] sysbench memory \\"
-            echo "--num-threads=${THREADS} \\"
+            echo "--threads=${THREADS} \\"
             echo "--memory-total-size=${MEMORY_TOTAL_SIZE} \\"
             echo "--memory-block-size=${MEMORY_BLOCK_SIZE} \\"
             echo "--memory-scope=global \\"
