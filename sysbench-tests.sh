@@ -79,7 +79,7 @@ for THREADS in ${CPU_THREADS}; do
             echo "run"
             echo ''
             sysbench memory \
-            --num-threads=${THREADS} \
+            --threads=${THREADS} \
             --memory-total-size=${MEMORY_TOTAL_SIZE} \
             --memory-block-size=${MEMORY_BLOCK_SIZE} \
             --memory-scope=global \
