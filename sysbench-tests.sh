@@ -28,10 +28,10 @@ echo ''
 
 for THREADS in ${CPU_THREADS}; do
     echo "[TASK] Start test with ${THREADS} threads ..."
-    echo "[COMMAND] sysbench cpu \
-    --cpu-max-prime=${CPU_MAX_PRIME} \
-    --threads=${THREADS} \
-    run"
+    echo "[COMMAND] sysbench cpu \\"
+    echo "--cpu-max-prime=${CPU_MAX_PRIME} \\"
+    echo "--threads=${THREADS} \\"
+    echo "run"
     sysbench cpu \
     --cpu-max-prime=${CPU_MAX_PRIME} \
     --threads=${THREADS} \
@@ -69,15 +69,15 @@ for THREADS in ${CPU_THREADS}; do
             echo "OPERATION: '${OPERATION}'"
             echo "MODE:      '${MODE}'"
             echo ''
-            echo "[COMMAND] sysbench memory \
-            --num-threads=${THREADS} \
-            --memory-total-size=${MEMORY_TOTAL_SIZE} \
-            --memory-block-size=${MEMORY_BLOCK_SIZE} \
-            --memory-scope=global \
-            --memory-hugetlb=off \
-            --memory-oper=${OPERATION} \
-            --memory-access-mode=${MODE} \
-            run"
+            echo "[COMMAND] sysbench memory \\"
+            echo "--num-threads=${THREADS} \\"
+            echo "--memory-total-size=${MEMORY_TOTAL_SIZE} \\"
+            echo "--memory-block-size=${MEMORY_BLOCK_SIZE} \\"
+            echo "--memory-scope=global \\"
+            echo "--memory-hugetlb=off \\"
+            echo "--memory-oper=${OPERATION} \\"
+            echo "--memory-access-mode=${MODE} \\"
+            echo "run"
             sysbench memory \
             --num-threads=${THREADS} \
             --memory-total-size=${MEMORY_TOTAL_SIZE} \
@@ -100,7 +100,7 @@ echo ''
 #==[DISK I/O]==================================================================
 
 # init
-FILE_SIZE='6G'
+FILE_SIZE='4G'
 FILE_BLOCK_SIZE='16384'
 FILE_THREADS='16 128'
 FILE_SEED='0' # current time used for random number generator
@@ -124,15 +124,15 @@ for THREADS in ${FILE_THREADS}; do
     echo ''
     for MODE in ${FILE_TEST_MODES}; do
         echo "[TASK] Running test with mode '${MODE}' ..."
-        echo "[COMMAND] sysbench fileio \
-        --file-total-size=${FILE_SIZE} \
-        --file-test-mode=${MODE} \
-        --threads=${THREADS} \
-        --file-block-size=${FILE_BLOCK_SIZE} \
-        --rand-seed=${FILE_SEED} \
-        --time=${FILE_MAX_TIME} \
-        --events=${FILE_MAX_EVENTS} \
-        run"
+        echo "[COMMAND] sysbench fileio \\"
+        echo "--file-total-size=${FILE_SIZE} \\"
+        echo "--file-test-mode=${MODE} \\"
+        echo "--threads=${THREADS} \\"
+        echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
+        echo "--rand-seed=${FILE_SEED} \\"
+        echo "--time=${FILE_MAX_TIME} \\"
+        echo "--events=${FILE_MAX_EVENTS} \\"
+        echo "run"
         sysbench fileio \
         --file-total-size=${FILE_SIZE} \
         --file-test-mode=${MODE} \
