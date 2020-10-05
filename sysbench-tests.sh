@@ -115,6 +115,8 @@ echo ''
 
 # create test files
 echo "[TASK] Creating ${FILE_SIZE} test file ..."
+echo "[COMMAND] sysbench fileio --file-total-size=${FILE_SIZE} prepare"
+echo ''
 sysbench fileio --file-total-size=${FILE_SIZE} prepare
 echo "[INFO] File creation complete"
 echo ''
@@ -150,6 +152,8 @@ done
 
 # delete test files
 echo "[TASK] Deleting ${FILE_SIZE} test file ..."
+echo "[COMMAND] sysbench fileio --file-total-size=${FILE_SIZE} cleanup"
+echo ''
 sysbench fileio --file-total-size=${FILE_SIZE} cleanup
 echo "[INFO] File deletion complete"
 echo ''
