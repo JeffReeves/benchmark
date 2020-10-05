@@ -32,6 +32,7 @@ for THREADS in ${CPU_THREADS}; do
     echo "--cpu-max-prime=${CPU_MAX_PRIME} \\"
     echo "--threads=${THREADS} \\"
     echo "run"
+    echo ''
     sysbench cpu \
     --cpu-max-prime=${CPU_MAX_PRIME} \
     --threads=${THREADS} \
@@ -78,6 +79,7 @@ for THREADS in ${CPU_THREADS}; do
             echo "--memory-oper=${OPERATION} \\"
             echo "--memory-access-mode=${MODE} \\"
             echo "run"
+            echo ''
             sysbench memory \
             --num-threads=${THREADS} \
             --memory-total-size=${MEMORY_TOTAL_SIZE} \
@@ -133,6 +135,7 @@ for THREADS in ${FILE_THREADS}; do
         echo "--time=${FILE_MAX_TIME} \\"
         echo "--events=${FILE_MAX_EVENTS} \\"
         echo "run"
+        echo ''
         sysbench fileio \
         --file-total-size=${FILE_SIZE} \
         --file-test-mode=${MODE} \
