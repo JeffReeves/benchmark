@@ -33,12 +33,15 @@ echo "--cpu-max-prime=${CPU_MAX_PRIME} \\"
 echo "--threads=${THREADS} \\"
 echo "run"
 echo ''
+
 sysbench cpu \
 --cpu-max-prime=${CPU_MAX_PRIME} \
 --threads=${THREADS} \
 run
 echo ''
+
 print_separator -
+echo ''
 
 echo "[END] CPU TESTS"
 print_separator
@@ -60,8 +63,10 @@ echo ''
 
 for OPERATION in ${MEMORY_OPERATIONS}; do
     for MODE in ${MEMORY_ACCESS_MODE}; do
+
         echo "[TASK] Testing ${MODE} ${OPERATION} ..."
         echo ''
+
         echo "[COMMAND] sysbench memory \\"
         echo "--threads=${THREADS} \\"
         echo "--memory-total-size=${MEMORY_TOTAL_SIZE} \\"
@@ -72,6 +77,7 @@ for OPERATION in ${MEMORY_OPERATIONS}; do
         echo "--memory-access-mode=${MODE} \\"
         echo "run"
         echo ''
+
         sysbench memory \
         --threads=${THREADS} \
         --memory-total-size=${MEMORY_TOTAL_SIZE} \
@@ -82,9 +88,11 @@ for OPERATION in ${MEMORY_OPERATIONS}; do
         --memory-access-mode=${MODE} \
         run
         echo ''
+
         print_separator -
     done
 done
+echo ''
 
 echo "[END] MEMORY TESTS"
 print_separator
@@ -124,13 +132,17 @@ echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
 echo "--file-total-size=${FILE_SIZE} \\"
 echo "prepare"
 echo ''
+
 sysbench fileio \
 --file-num=${FILE_NUM} \
 --file-block-size=${FILE_BLOCK_SIZE} \
 --file-total-size=${FILE_SIZE} \
 prepare
+echo ''
+
 echo "[INFO] File creation complete"
 print_separator -
+echo ''
 
 # start running tests
 echo "[TASK] Start test with ${THREADS} threads ..."
@@ -142,6 +154,7 @@ for MODE in ${FILE_TEST_MODES}; do
     # /usr/bin/ls -alh .
 
     echo "[TASK] Running test with mode '${MODE}' ..."
+
     echo "[COMMAND] sysbench fileio \\"
     echo "--file-num=${FILE_NUM} \\"
     echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
@@ -153,6 +166,7 @@ for MODE in ${FILE_TEST_MODES}; do
     echo "--events=${FILE_MAX_EVENTS} \\"
     echo "run"
     echo ''
+
     sysbench fileio \
     --file-num=${FILE_NUM} \
     --file-block-size=${FILE_BLOCK_SIZE} \
@@ -169,20 +183,23 @@ for MODE in ${FILE_TEST_MODES}; do
 done
 
 # delete test files
-echo "[TASK] Deleting ${FILE_SIZE} test file ..."
+echo "[TASK] Deleting ${FILE_NUM} test files ..."
+
 echo "[COMMAND] sysbench fileio \\"
 echo "--file-num=${FILE_NUM} \\"
 echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
 echo "--file-total-size=${FILE_SIZE} \\"
 echo "cleanup"
 echo ''
+
 sysbench fileio \
 --file-num=${FILE_NUM} \
 --file-block-size=${FILE_BLOCK_SIZE} \
 --file-total-size=${FILE_SIZE} \
 cleanup
+echo ''
+
 echo "[INFO] File deletion complete"
-print_separator -
 echo ''
 
 echo "[END] DISK I/O TESTS"
@@ -198,15 +215,16 @@ echo "[BEGIN] THREADS TESTS"
 echo ''
 
 echo "[TASK] Start test with ${THREADS} threads ..."
+
 echo "[COMMAND] sysbench threads \\"
 echo "--threads=${THREADS} \\"
 echo "run"
 echo ''
+
 sysbench threads \
 --threads=${THREADS} \
 run
 echo ''
-print_separator -
 
 echo "[END] THREADS TESTS"
 print_separator
@@ -221,15 +239,16 @@ echo "[BEGIN] MUTEX TEST"
 echo ''
 
 echo "[TASK] Start test with ${THREADS} threads ..."
+
 echo "[COMMAND] sysbench mutex \\"
 echo "--threads=${THREADS} \\"
 echo "run"
 echo ''
+
 sysbench mutex \
 --threads=${THREADS} \
 run
 echo ''
-print_separator -
 
 echo "[END] MUTEX TEST"
 print_separator
