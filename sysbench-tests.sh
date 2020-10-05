@@ -122,17 +122,9 @@ echo ''
 
 # create test files
 echo "[TASK] Creating ${FILE_SIZE} test file ..."
-echo "[COMMAND] sysbench fileio \\"
-echo "--file-num=${FILE_NUM} \\"
-echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
-echo "--file-total-size=${FILE_SIZE} \\"
-echo "prepare"
+echo "[COMMAND] sysbench fileio prepare"
 echo ''
-sysbench fileio \
---file-num=${FILE_NUM} \
---file-block-size=${FILE_BLOCK_SIZE} \
---file-total-size=${FILE_SIZE} \
-prepare
+sysbench fileio prepare
 echo "[INFO] File creation complete"
 echo ''
 
@@ -142,20 +134,16 @@ for THREADS in ${FILE_THREADS}; do
     for MODE in ${FILE_TEST_MODES}; do
         echo "[TASK] Running test with mode '${MODE}' ..."
         echo "[COMMAND] sysbench fileio \\"
-        echo "--file-total-size=${FILE_SIZE} \\"
         echo "--file-test-mode=${MODE} \\"
         echo "--threads=${THREADS} \\"
-        echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
         echo "--rand-seed=${FILE_SEED} \\"
         echo "--time=${FILE_MAX_TIME} \\"
         echo "--events=${FILE_MAX_EVENTS} \\"
         echo "run"
         echo ''
         sysbench fileio \
-        --file-total-size=${FILE_SIZE} \
         --file-test-mode=${MODE} \
         --threads=${THREADS} \
-        --file-block-size=${FILE_BLOCK_SIZE} \
         --rand-seed=${FILE_SEED} \
         --time=${FILE_MAX_TIME} \
         --events=${FILE_MAX_EVENTS} \
@@ -167,17 +155,9 @@ done
 
 # delete test files
 echo "[TASK] Deleting ${FILE_SIZE} test file ..."
-echo "[COMMAND] sysbench fileio \\"
-echo "--file-num=${FILE_NUM} \\"
-echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
-echo "--file-total-size=${FILE_SIZE} \\"
-echo "cleanup"
+echo "[COMMAND] sysbench fileio cleanup"
 echo ''
-sysbench fileio \
---file-num=${FILE_NUM} \
---file-block-size=${FILE_BLOCK_SIZE} \
---file-total-size=${FILE_SIZE} \
-cleanup
+sysbench fileio cleanup
 echo "[INFO] File deletion complete"
 echo ''
 
