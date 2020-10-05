@@ -136,7 +136,7 @@ for THREADS in ${FILE_THREADS}; do
     --file-total-size=${FILE_SIZE} \
     prepare
     echo "[INFO] File creation complete"
-    echo ''
+    print_separator -
 
     # start running tests
     echo "[TASK] Start test with ${THREADS} threads ..."
@@ -176,6 +176,7 @@ for THREADS in ${FILE_THREADS}; do
     --file-total-size=${FILE_SIZE} \
     cleanup
     echo "[INFO] File deletion complete"
+    print_separator -
     echo ''
 done
 
