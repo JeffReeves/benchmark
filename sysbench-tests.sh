@@ -104,9 +104,9 @@ FILE_SIZE='4G'
 FILE_NUM='128'
 FILE_BLOCK_SIZE='32768'
 FILE_THREADS='16 128'
-FILE_SEED='0' # use current time for random number generator
-FILE_MAX_EVENTS='0' # unlimited
-FILE_MAX_TIME='600' # allow 10 minutes for each test
+FILE_SEED='0' # 0 = use current time for random number generator
+FILE_MAX_EVENTS='1000' # 0 = unlimited
+FILE_MAX_TIME='120' # allow 10 minutes for each test
 FILE_TEST_MODES='rndrd seqrd rndwr seqwr rndrw seqrewr'
 # rndrd   = random read
 # seqrd   = sequential read
