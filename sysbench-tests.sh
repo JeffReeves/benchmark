@@ -100,11 +100,11 @@ echo ''
 #==[DISK I/O]==================================================================
 
 # init
-FILE_SIZE='2G'
+FILE_SIZE='4G'
 FILE_NUM='128'
-FILE_BLOCK_SIZE='16384'
+FILE_BLOCK_SIZE='32768'
 FILE_THREADS='16 128'
-FILE_SEED='0' # current time used for random number generator
+FILE_SEED='0' # use current time for random number generator
 FILE_MAX_EVENTS='0' # unlimited
 FILE_MAX_TIME='60'
 FILE_TEST_MODES='rndrd seqrd rndwr seqwr rndrw seqrewr'
@@ -120,23 +120,25 @@ print_separator
 echo "[BEGIN] DISK I/O TESTS"
 echo ''
 
-# create test files
-echo "[TASK] Creating ${FILE_SIZE} test file ..."
-echo "[COMMAND] sysbench fileio \\"
-echo "--file-num=${FILE_NUM} \\"
-echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
-echo "--file-total-size=${FILE_SIZE} \\"
-echo "prepare"
-echo ''
-sysbench fileio \
---file-num=${FILE_NUM} \
---file-block-size=${FILE_BLOCK_SIZE} \
---file-total-size=${FILE_SIZE} \
-prepare
-echo "[INFO] File creation complete"
-echo ''
-
 for THREADS in ${FILE_THREADS}; do
+
+    # create test files
+    echo "[TASK] Creating ${FILE_SIZE} test file ..."
+    echo "[COMMAND] sysbench fileio \\"
+    echo "--file-num=${FILE_NUM} \\"
+    echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
+    echo "--file-total-size=${FILE_SIZE} \\"
+    echo "prepare"
+    echo ''
+    sysbench fileio \
+    --file-num=${FILE_NUM} \
+    --file-block-size=${FILE_BLOCK_SIZE} \
+    --file-total-size=${FILE_SIZE} \
+    prepare
+    echo "[INFO] File creation complete"
+    echo ''
+
+    # start running tests
     echo "[TASK] Start test with ${THREADS} threads ..."
     echo ''
     for MODE in ${FILE_TEST_MODES}; do
@@ -163,23 +165,25 @@ for THREADS in ${FILE_THREADS}; do
         echo ''
         print_separator -
     done
+
+    # delete test files
+    echo "[TASK] Deleting ${FILE_SIZE} test file ..."
+    echo "[COMMAND] sysbench fileio \\"
+    echo "--file-num=${FILE_NUM} \\"
+    echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
+    echo "--file-total-size=${FILE_SIZE} \\"
+    echo "cleanup"
+    echo ''
+    sysbench fileio \
+    --file-num=${FILE_NUM} \
+    --file-block-size=${FILE_BLOCK_SIZE} \
+    --file-total-size=${FILE_SIZE} \
+    cleanup
+    echo "[INFO] File deletion complete"
+    echo ''
 done
 
-# delete test files
-echo "[TASK] Deleting ${FILE_SIZE} test file ..."
-echo "[COMMAND] sysbench fileio \\"
-echo "--file-num=${FILE_NUM} \\"
-echo "--file-block-size=${FILE_BLOCK_SIZE} \\"
-echo "--file-total-size=${FILE_SIZE} \\"
-echo "cleanup"
-echo ''
-sysbench fileio \
---file-num=${FILE_NUM} \
---file-block-size=${FILE_BLOCK_SIZE} \
---file-total-size=${FILE_SIZE} \
-cleanup
-echo "[INFO] File deletion complete"
-echo ''
+
 
 echo "[END] DISK I/O TESTS"
 print_separator
