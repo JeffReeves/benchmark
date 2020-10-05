@@ -36,7 +36,7 @@ CURRENT_DIRECTORY=$(dirname "${REAL_PATH}")
 # run test suite
 TEST_SUITE='sysbench-tests.sh'
 echo "[TASK] Starting sysbench test suite ..." 
-echo "[COMMAND] ${CURRENT_DIRECTORY}/${TEST_SUITE}"
+echo "[COMMAND] ${CURRENT_DIRECTORY}/${TEST_SUITE} | tee -a ${LOG_FILE}"
 "${CURRENT_DIRECTORY}/${TEST_SUITE}" | tee -a ${LOG_FILE}
 echo '' | tee -a ${LOG_FILE}
 
