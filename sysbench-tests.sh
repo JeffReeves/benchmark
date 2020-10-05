@@ -63,10 +63,8 @@ for THREADS in ${CPU_THREADS}; do
     echo "[TASK] Start test with ${THREADS} threads ..."
     echo ''
     for OPERATION in ${MEMORY_OPERATIONS}; do
-        echo "[TASK] Running test with operation '${OPERATION}' ..."
-        echo ''
         for MODE in ${MEMORY_ACCESS_MODE}; do
-            echo "[INFO] Running test with:"
+            echo "[TASK] Running test with:"
             echo "OPERATION: '${OPERATION}'"
             echo "MODE:      '${MODE}'"
             echo ''
